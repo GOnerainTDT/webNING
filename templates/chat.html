@@ -20,8 +20,8 @@
 				<nav>
 					<ul>
 						<li><a href="/">Home</a></li>
-						<li><a href="/wish">wishi</a></li>
-						<li><a href="/chat"  class="active">chat</a></li>
+						<li><a href="/wish">Wish</a></li>
+						<li><a href="/chatRobo"  class="active">Chat</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -36,28 +36,21 @@
 									<h1 class="major">聊天界面</h1>
 									<div class="remaining-count">剩余次数: <span id="remaining">{{ remaining }}</span></div>
 								</div>
-
 								<div id="chat-box">
 									<!-- 聊天历史将在这里显示 -->
 								</div>
-								<form id="chat-form">
-									<input type="text" id="chat-input" placeholder="输入消息...">
-									<button type="submit">发送</button>
+								<div class="loading" style="display: none;">
+									<img src="{{ url_for('static', filename='images/loading.gif') }}" alt="加载中...">
+								</div>
+								<hr> <!-- 分隔线 -->
+								<form id="chat-form" class="chat-form">
+									<div class="form-group">
+										<input type="text" id="chat-input" placeholder="输入消息...">
+										<button type="submit">发送</button>
+									</div>
 								</form>
 							</div>
 							
-							<!-- <form id="chat-form">
-								<div class="fields">
-									<div class="field">
-										<input type="text" id="chat-input" placeholder="输入消息..." />
-									</div>
-									<div class="field">
-										<ul class="actions">
-											<li><input type="submit" value="发送" /></li>
-										</ul>
-									</div>
-								</div>
-							</form> -->
 						</div>
 						
 						<div class="inner">

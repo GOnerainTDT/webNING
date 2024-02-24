@@ -3923,3 +3923,41 @@ input, select, textarea {
 			font-size: 0.8em; /* 调整字体大小 */
 			color: #FFF; /* 根据需要调整颜色 */
 		}
+		#chat-box {
+			margin-bottom: 10px; /* 聊天盒子与加载动画之间的间隔 */
+		}
+
+		.message {
+			margin-bottom: 5px; /* 默认每条消息之间的间隔 */
+		}
+		
+		.user-message {
+			margin-bottom: 5px; /* 用户消息下方的额外间隔 */
+		}
+		
+		.chatgpt-message {
+			margin-bottom: 30px; /* ChatGPT回复下方的额外间隔 */
+		}
+
+		.loading {
+			display: none; /* 默认不显示 */
+			position: fixed; /* 或absolute，取决于需要 */
+			top: 50%; /* 居中显示 */
+			left: 50%;
+
+			z-index: 1000; /* 确保加载动画显示在其他内容之上 */
+			margin-bottom: 10px; /* 加载动画与输入区之间的间隔 */
+		  }
+		  
+		.loading img {
+			width: 50px; /* 根据需要调整大小 */
+			height: auto;
+		}
+		.chat-form .form-group {
+			display: flex; /* 使输入框和按钮在同一行 */
+			align-items: center; /* 垂直居中对齐 */
+		}
+		#chat-input {
+			flex-grow: 1; /* 输入框占据剩余空间 */
+			margin-right: 10px; /* 与发送按钮的间隔 */
+		}

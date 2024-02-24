@@ -6,11 +6,12 @@ from pyzbar.pyzbar import decode
 from PIL import Image
 import os
 import cv2
+import numpy as np
 import datetime
-import random
 import ipadrr
-import haveFood
 import weather
+import random
+import haveFood
 import fortune
 import uploadImage
 from chatGPTClient import OpenAIChatClient
@@ -51,11 +52,29 @@ def upload_image():
     if not file or file.filename == '':
         flash('No file selected')
         return redirect(request.url)
+    
+    usr_image = None
+    try:
+        # 将文件对象转换为PIL图像对象
+        image = Image.open(file.stream)
 
-    save_path = uploadImage.save_uploaded_file(app.config['UPLOAD_FOLDER'] ,file)
-    image = cv2.imread(save_path)
+        # 确保图像模式是RGB
+        if image.mode != 'RGB':
+                image = image.convert('RGB')
+
+        # 将PIL图像对象转换为numpy数组
+        image_np = np.array(image)
+        usr_image = image_np
+
+    except Exception as e:
+        print(e)
+        return redirect(request.url)
+
+    # 保存图片
+    # save_path = uploadImage.save_uploaded_file(app.config['UPLOAD_FOLDER'] ,file)
+    # image_np = cv2.imread(save_path)
     # 读取二维码
-    qr_data, _, _ = detector.detectAndDecode(image)
+    qr_data, _, _ = detector.detectAndDecode(usr_image)
     # ip位置
     visitor_ip = uploadImage.get_visitor_ip()
     usrCountry, usrCity = ipadrr.get_location(visitor_ip)
@@ -66,6 +85,7 @@ def upload_image():
         usr_weather_info, usr_city_temp, usr_city_weather = weather.get_weather(usrCity)  # 假设已获取天气信息
         # str_fortune = usrName + "," + haveFood.ask_about_meal() + weather.get_weather(usrCity) + fortune.get_fortune(birthday)
         str_fortune = chat_client.get_personalized_message(name=usrName, city=usrCity, weather_info=usr_city_weather,temp=usr_city_temp)
+        print(str_fortune)
         # str_fortune = chat_client.get_personalized_message(name="谢宁", city="沈阳", weather_info="大雪",temp="4摄氏度")
         return jsonify(success=True, name=usrName, id=id, birthday=birthday, current_time=current_time, visitor_ip=visitor_ip, country=usrCountry, city=usrCity, strFortune=str_fortune, message=message)
     
@@ -108,9 +128,9 @@ def chat():
     # return jsonify({"reply": reply})
 
 # Elements 页面路由
-@app.route('/upload')
+@app.route('/map')
 def uploads():
-    return render_template('upload.html')
+    return render_template('elements.html')
     
 
 if __name__ == '__main__':
