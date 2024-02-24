@@ -151,5 +151,7 @@ def get_weather(city_name):
     else:
         return "我不知道你现在在哪里，但也真切的希望，今天你所在的土地，仍旧晴空万里，花香四溢。"
 
+if __name__ == '__main__':
+    print(get_weather("Shenyang"))
 # # 示例：获取"北京"的天气
 # print(get_weather("Shenyang"))

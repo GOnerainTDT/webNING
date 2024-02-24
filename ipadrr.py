@@ -18,3 +18,7 @@ def get_location(ip):
         # 处理其他可能的异常
         print(f"Error while looking up {ip}: {e}")
         return 'Error', 'Error'
+
+if __name__ == '__main__':
+    co,city = get_location("20.68.31.31")
+    print(co,city)

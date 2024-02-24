@@ -71,6 +71,11 @@ input, select, textarea {
 	appearance: none;
 }
 
+/* styles.css */
+#fileInput {
+    display: none;
+}
+
 /* Basic */
 
 	@-ms-viewport {

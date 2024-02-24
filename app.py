@@ -53,8 +53,16 @@ def upload_image():
         image = cv2.imread(save_path)
         # 检测并解码二维码
         qr_data, bbox, straight_qrcode = detector.detectAndDecode(image)
+        headers = request.headers
+        x_forwarded_for = headers.get('X-Forwarded-For')
         visitor_ip = request.remote_addr  # 获取访问者的 IP 地址
+        if x_forwarded_for is None:
+            visitor_ip = request.remote_addr
+        else:
+            visitor_ip = x_forwarded_for.split(',')[0]  # 取第一个IP地址
         country, city = ipadrr.get_location(visitor_ip)
+        print(visitor_ip)
+        print(city)
         str_fortune = ""
         if qr_data != "":
             # 使用split方法按照", "分割字符串
@@ -130,4 +138,4 @@ def uploads():
     return render_template('upload.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)

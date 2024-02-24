@@ -35,32 +35,27 @@
 							<h1 class="major">听听星星怎么说</h1>
 							<span class="image fit"><img src="{{ url_for('static', filename='images/pic04.jpg') }}" alt="" data-position="center center" /></span>
 							<!-- 触发文件上传的按钮或区域 -->
-							<button onclick="document.getElementById('fileInput').click();">上传新图片</button>
-							<input type="file" id="fileInput" onchange="previewAndUploadImage(event)" style="display: none;">
+							<button id="upload-btn">上传新图片</button>
+							<input type="file" id="fileInput">
 
-							<!-- 隐藏的文件输入 -->
-							<!-- <input type="file" name="file" id="file-upload" style="display: none;" onchange="uploadFile()"> -->
-							<!-- 可见的上传按钮 -->
-							<!-- <div class="upload-btn-wrapper">
-								<button class="button" id="upload-btn">Upload File</button>
-							</div> -->
 							<span class="image fit" id="uploaded-image"></span>
 							<!-- 在图片上传区域下方添加一个用于显示当前时间的段落 -->
 							<p id="currentTime">Current time will be displayed here after uploading an image.</p>
 						</div>
 					</section>
 			</div>
-			<script>
+			<!-- <script>
 				document.getElementById('upload-btn').onclick = function() {
 					document.getElementById('file-upload').click();
 				};
-				</script>
+				</script> -->
 
 		<!-- Footer -->
 		<footer id="footer" class="wrapper alt">
 			<div class="inner">
 				<ul class="menu">
-					<li>&copy; My friend. Have a nice day!</li><li>花殇</li>
+					<li>My friend. Have a nice day!</li><li>花殇</li>
+					<div><a href="https://beian.miit.gov.cn/" target="_blank">冀ICP备2024054877号-1</a></div>
 				</ul>
 			</div>
 		</footer>
@@ -74,6 +69,7 @@
 		<script src="{{ url_for('static', filename='js/util.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/uploadHandler.js') }}"></script>
 
 	</body>
 </html>
