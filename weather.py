@@ -106,25 +106,31 @@ def get_weather(city_name):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
     final_url = f"{base_url}appid={api_key}&q={city_name}&units=metric"
     if city_name == 'Unknown' or city_name == 'Error':
-        return "我不知道你在哪里，希望你有个好天气。"
+        return "我不知道你在哪里，希望你有个好天气。", "未知温度", "未知天气"
     
     try:
         response = requests.get(final_url)
         response.raise_for_status()  # Raises stored HTTPError, if one occurred.
         weather_data = response.json()
+        temp = ''
+        weather_description = ''
+        if weather_data['cod'] == 200:
+            temp = weather_data['main']['temp']
+            weather_description = weather_data['weather'][0]['description']
+        return weather_data, temp, weather_description
     except requests.exceptions.HTTPError as errh:
         print("Http Error:", errh)
-        return "天气服务暂时不可用，希望你那里能够有个好天气。"
+        return "天气服务暂时不可用，希望你那里能够有个好天气。", "未知温度", "未知天气"
     except requests.exceptions.ConnectionError as errc:
         print("Error Connecting:", errc)
-        return "连接天气服务失败，但我希望你那里能够有个好天气。"
+        return "连接天气服务失败，但我希望你那里能够有个好天气。", "未知温度", "未知天气"
     except requests.exceptions.Timeout as errt:
         print("Timeout Error:", errt)
-        return "连接天气服务超时，但我希望你那里能够有个好天气。"
+        return "连接天气服务超时，但我希望你那里能够有个好天气。", "未知温度", "未知天气"
     except requests.exceptions.RequestException as err:
         print("Oops: Something Else", err)
-        return "获取天气信息不知道哪里出错了，但我希望你那里能够有个好天气。"
-
+        return "获取天气信息不知道哪里出错了，但我希望你那里能够有个好天气。", "未知温度", "未知天气"
+def get_weather_congratulations(city_name,weather_data):
     if weather_data['cod'] == 200:
         temp = weather_data['main']['temp']
         weather_description = weather_data['weather'][0]['description']
@@ -152,6 +158,8 @@ def get_weather(city_name):
         return "我不知道你现在在哪里，但也真切的希望，今天你所在的土地，仍旧晴空万里，花香四溢。"
 
 if __name__ == '__main__':
-    print(get_weather("Shenyang"))
+    weather_data, temp, weather_description = get_weather("Shenyang")
+    print(weather_data, temp, weather_description)
+    print(get_weather_congratulations("Shenyang",weather_data))
 # # 示例：获取"北京"的天气
 # print(get_weather("Shenyang"))

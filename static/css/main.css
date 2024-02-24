@@ -3912,3 +3912,14 @@ input, select, textarea {
 			}
 
 		}
+/* Chat */
+		.chat-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.remaining-count {
+			font-size: 0.8em; /* 调整字体大小 */
+			color: #FFF; /* 根据需要调整颜色 */
+		}
